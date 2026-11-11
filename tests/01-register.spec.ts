@@ -2,6 +2,7 @@ import { test, expect } from '../fixtures/pages.fixture';
 import { createRandomUser } from '../data/user.factory';
 
 test.describe('Test 1: Customer Registration', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
   test('should successfully register a new customer', async ({
     registerPage,
     page,

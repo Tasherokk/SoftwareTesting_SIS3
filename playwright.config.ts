@@ -1,24 +1,27 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+dotenv.config();
+
+const isCI = !!process.env.CI;
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [
-    ['html', { open: 'never' }],
-    ['list']
-  ],
-  timeout: 45000,
-  expect: {
-    timeout: 10000,
-  },
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 2 : undefined,  
+  
+  reporter: isCI
+    ? [
+        ['list'],
+        ['blob'],                                   
+        ['junit', { outputFile: 'reports/junit.xml' }],
+      ]
+    : [['list'], ['html', { open: 'on-failure' }]],
+
   use: {
-    baseURL: 'https://practicesoftwaretesting.com',
+    baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-test',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
@@ -26,31 +29,12 @@ export default defineConfig({
   },
 
   projects: [
-    { 
-      name: 'setup', 
-      testMatch: /.*\.setup\.ts/ 
-    },
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json' 
-      },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'firefox',
-      use: { 
-        ...devices['Desktop Firefox'], 
-        storageState: 'playwright/.auth/user.json' 
-      },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'webkit',
-      use: { 
-        ...devices['Desktop Safari'], 
-        storageState: 'playwright/.auth/user.json' 
+        storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
