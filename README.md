@@ -31,7 +31,7 @@ End-to-end automated test suite for [Practice Software Testing](https://practice
 ### Running locally
 1. Create a `.env` file in the root directory (excluded via `.gitignore`):
 ```env
-BASE_URL=[https://practicesoftwaretesting.com](https://practicesoftwaretesting.com)
+BASE_URL=https://practicesoftwaretesting.com
 TEST_EMAIL=customer2@practicesoftwaretesting.com
 TEST_PASSWORD=welcome01
 ```
