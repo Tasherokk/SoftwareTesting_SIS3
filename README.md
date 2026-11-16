@@ -24,9 +24,9 @@ End-to-end automated test suite for [Practice Software Testing](https://practice
 | Configuration | GitHub Actions Total | Run tests step (slowest shard) | Local (`CI=true`) | Run |
 | --- | --- | --- | --- | --- |
 | 1 job, no sharding | 3m 15s | 2m 47s | 19.4s | [run](https://github.com/Tasherokk/SoftwareTesting_SIS3/actions/runs/43921737424) |
-| 4 shards + merge | X min Y s | X min Y s | 8.1s | [run](link) |
+| 4 shards + merge | 3m 15s | 2m 23s | 8.1s | [run](https://github.com/Tasherokk/SoftwareTesting_SIS3/actions/runs/43923005470) |
 
-Median of 3 runs via `workflow_dispatch`. Conclusion: Splitting the suite into 4 parallel shards reduced the test execution step time, though overall workflow time includes a fixed ~45s overhead for runner provisioning, browser installation, and the report merge job.
+**Conclusion:** In GitHub Actions, both 1-shard and 4-shard runs hit the exact same 90-second Cloudflare CAPTCHA timeout in `auth.setup.ts` (initial attempt + 2 retries × 30s), and the 4-shard workflow takes slightly longer overall (`3m 15s`) due to the extra `Merge reports` job (`17s`). However, local execution in CI mode (`CI=true`) proves that 4-shard parallelism works as intended and cuts the actual test execution time per shard more than in half.
 
 ### Running locally
 1. Create a `.env` file in the root directory (excluded via `.gitignore`):
