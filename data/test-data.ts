@@ -1,7 +1,7 @@
 export const TEST_DATA = {
   validUser: {
-    email: 'customer@practicesoftwaretesting.com',
-    password: 'welcome01',
+    email: process.env.TEST_EMAIL as string,
+    password: process.env.TEST_PASSWORD as string,
   },
   invalidUser: {
     email: 'wrong.user@practicesoftwaretesting.com',

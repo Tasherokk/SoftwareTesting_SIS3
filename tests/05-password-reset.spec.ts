@@ -2,6 +2,7 @@ import { test } from '../fixtures/pages.fixture';
 import { TEST_DATA } from '../data/test-data';
 
 test.describe('Test 5: Password Reset Flow', () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
   test('should show error when requesting password reset with an invalid email', async ({
     passwordResetPage,
   }) => {
