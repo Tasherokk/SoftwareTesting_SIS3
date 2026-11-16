@@ -23,7 +23,7 @@ End-to-end automated test suite for [Practice Software Testing](https://practice
 ### Runtime
 | Configuration | GitHub Actions Total | Run tests step (slowest shard) | Local (`CI=true`) | Run |
 | --- | --- | --- | --- | --- |
-| 1 job, no sharding | X min Y s | X min Y s | 19.4s | [run](link) |
+| 1 job, no sharding | 3m 15s | 2m 47s | 19.4s | [run](https://github.com/Tasherokk/SoftwareTesting_SIS3/actions/runs/43921737424) |
 | 4 shards + merge | X min Y s | X min Y s | 8.1s | [run](link) |
 
 Median of 3 runs via `workflow_dispatch`. Conclusion: Splitting the suite into 4 parallel shards reduced the test execution step time, though overall workflow time includes a fixed ~45s overhead for runner provisioning, browser installation, and the report merge job.
